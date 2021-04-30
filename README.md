@@ -13,9 +13,9 @@ git clone https://github.com/Ezotose-1/Mines.git
 
 ## Utilisation
 ### Manual play
-Each round you can play or let the bot play. To manually play press 'N', '0' or 'false' 
+At the start of the game you have to choose playing or let the bot play. To manually play press 'N', '0' or 'false' 
 ```console
-Auto Play the round : (N/[Any key])
+Auto Play : (N/Y)
 > N
 ```
 This script is a console program using the C# NET Core language. You can use it by following the instructions of the input.  
@@ -44,9 +44,9 @@ Case far away from mines is marked by a minus char '-'
 
 
 ### IA play
-I implemented a basic IA that can play round by round. You can play a round with it by pressing enter at this message : 
+I implemented a basic IA that can play round by round. You can choose to let it play at the start of the game : 
 ```console
-Auto Play the round : (N/[Any key])
+Auto Play the round : (N/Y)
 > [ENTER]
 ```
 
@@ -56,6 +56,7 @@ Auto Play the round : (N/[Any key])
 ```
 Mines
 └─ Board.cs     -< Game Board where all methods are
+└─ Bot.cs       -< Bot methods
 └─ Case.cs      -< Case object
 └─ Program.cs   -< Main rounds program
 ```
