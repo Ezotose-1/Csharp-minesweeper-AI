@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace Mines
 {
@@ -18,12 +19,12 @@ namespace Mines
 
             Board.DrawPlate(board);
 
+            Console.WriteLine("Auto Play : (N/Y)");
+            string autoplay = Console.ReadLine();
             // Rounds loop
             while (!board.GameEnd)
             {
                 bool tagged = false;
-                Console.WriteLine("Auto Play the round : (N/[Any key])");
-                string autoplay = Console.ReadLine();
                 if (autoplay.ToLower() == "false" || autoplay == "0" || autoplay.ToLower() == "n")
                 {
                     Console.WriteLine("Enter a letter X :");
@@ -60,7 +61,8 @@ namespace Mines
                     else
                     { 
                         board = Bot.getPlays(board);
-                   }
+                    }
+                    Thread.Sleep(400);
                 }
                 
                     // End of round
@@ -69,6 +71,7 @@ namespace Mines
                 Board.DrawPlate(board);
                 board = Board.CheckVictory(board);
             }
+            Console.ReadLine();
 
         }
     }

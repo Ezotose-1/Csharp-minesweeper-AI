@@ -86,7 +86,6 @@ namespace Mines
                         if (Plate[x, y].Exposed && bombAround.Count >= Plate[x, y].Value && possiblePlay.Count > 0) {
                             int xPlay = possiblePlay[0].Item1;
                             int yPlay = possiblePlay[0].Item2;
-                            Console.WriteLine(xPlay + " " + yPlay);
                             board  = Board.updatePlate(board, xPlay, yPlay);
                             return board;
                         }
