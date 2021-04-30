@@ -3,7 +3,7 @@ C# Console Mines game
 
 
 
-### Installation
+## Installation
 * Download the file thank's to the github page. Or clone the project with the git link :
 ```shell
 git clone https://github.com/Ezotose-1/Mines.git
@@ -12,7 +12,7 @@ git clone https://github.com/Ezotose-1/Mines.git
 
 
 ## Utilisation
-#### Manual play
+### Manual play
 Each round you can play or let the bot play. To manually play press 'N', '0' or 'false' 
 ```console
 Auto Play the round : (N/[Any key])
@@ -43,7 +43,7 @@ Bomb's neighbours are marked by the mines count.
 Case far away from mines is marked by a minus char '-'
 
 
-#### IA play
+### IA play
 I implemented a basic IA that can play round by round. You can play a round with it by pressing enter at this message : 
 ```console
 Auto Play the round : (N/[Any key])
