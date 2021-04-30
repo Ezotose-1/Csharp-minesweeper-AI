@@ -9,7 +9,9 @@ namespace Mines
         public Case[,] Plate { get; set; }
         public int Size { get; set; }
         public int MineCount { get; set; }
+        public int MineValue { get; set; }
         public bool GameEnd { get; set; }
+        public int Rounds { get; set; }
 
 
         // Return free position for mine
@@ -42,7 +44,7 @@ namespace Mines
                 }
             }
                 // Generate mines
-            for (int k = 0; k < board.MineCount; k++)
+            for (int k = 0; k < board.MineValue; k++)
             {
                 (int, int) minePos = generateMine(board);
                 int posX = minePos.Item1;
@@ -84,10 +86,17 @@ namespace Mines
                         Console.Write(" | " + board.Plate[x,y].Value);
                     else if (board.Plate[x, y].IsMine && board.GameEnd)
                         Console.Write(" | *");
+                    else if (board.Plate[x, y].IsTagged)
+                        Console.Write(" | @");
                     else
                         Console.Write(" |  ");
                 }
-                Console.Write(" |\n");
+                Console.Write(" |");
+                if (y == board.Size / 2-2)
+                    Console.Write("      Mines : " + board.MineCount + "/" + board.MineValue);
+                if (y == board.Size / 2 -1)
+                    Console.Write("      Round : " + board.Rounds);
+                Console.Write("\n");
             }
         }
 
@@ -137,6 +146,7 @@ namespace Mines
         }
 
 
+                // Check if the game is finished by victory.
         public static Board CheckVictory(Board board)
         {
             int countClear = 0;
@@ -147,7 +157,7 @@ namespace Mines
                     countClear = (board.Plate[x, y].Exposed) ? countClear : countClear + 1;
                 }
             }
-            board.GameEnd = board.GameEnd || (countClear == board.MineCount);
+            board.GameEnd = board.GameEnd || (countClear == board.MineValue);
             return board;
         }
     }
