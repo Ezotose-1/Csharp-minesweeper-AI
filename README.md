@@ -1,4 +1,4 @@
-# Mines
+# Minesweeper
 C# Console Mines game
 
 
