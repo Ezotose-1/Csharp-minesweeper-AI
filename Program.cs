@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 
 namespace Mines
@@ -21,6 +22,8 @@ namespace Mines
 
             Console.WriteLine("Auto Play : (N/Y)");
             string autoplay = Console.ReadLine();
+                // init list of Bot Moves
+            List<Move> plays = new List<Move>();
             // Rounds loop
             while (!board.GameEnd)
             {
@@ -31,7 +34,6 @@ namespace Mines
                     string entry = Console.ReadLine();
                     if (entry[0] == '@')
                     {
-                        board.MineCount += 1;
                         tagged = true;
                         entry = entry.Substring(1);
                     }
@@ -39,16 +41,17 @@ namespace Mines
                     int posX = (int)letterX - 65;
                     Console.WriteLine("Enter a position Y :");
                     int posY = Convert.ToInt32(Console.ReadLine());
-                    if (tagged)
+
+                    Move roundMove = new Move
                     {
-                        board.Plate[posX, posY].IsTagged = !board.Plate[posX, posY].IsTagged;
-                    }
-                    else
-                    {
-                        board = Board.updatePlate(board, posX, posY);
-                    }
+                        posX = posX,
+                        posY = posY,
+                        tagged = tagged
+                    };
+                    Board.Play(board, roundMove);
                 } else
                 {
+                    //Console.WriteLine(Bot.getPlays(board).Count);
                         // Every start for the bot is click on each corner
                     if (board.Rounds == 0)
                         Board.updatePlate(board, 0, 0);
@@ -59,8 +62,15 @@ namespace Mines
                     else if (board.Rounds == 3)
                         Board.updatePlate(board, board.Size - 1, board.Size - 1);
                     else
-                    { 
-                        board = Bot.getPlays(board);
+                    {
+                        Console.WriteLine(plays.Count + " plays possible");
+                        if (plays.Count == 0)
+                        {
+                            plays.AddRange(Bot.getPlays(board));
+                            Console.WriteLine("recalculating plays");
+                        }
+                        board = Board.Play(board, plays[0]);
+                        plays.RemoveAt(0);
                     }
                     Thread.Sleep(400);
                 }

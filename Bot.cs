@@ -69,9 +69,10 @@ namespace Mines
         }
 
 
-                // Play a round and return the new plate
-        public static Board getPlays (Board board)
+                // Returns all possible move that IA can play
+        public static List<Move> getPlays (Board board)
         {
+            List<Move> moves = new List<Move>();
             Case[,] Plate = board.Plate;
             for (int y = 0; y < board.Size; y++)
             {
@@ -84,32 +85,53 @@ namespace Mines
                         List<(int, int)> bombAround = CountBombExposed(board, x, y);
                             // If all bomb around have been found : CLICK
                         if (Plate[x, y].Exposed && bombAround.Count >= Plate[x, y].Value && possiblePlay.Count > 0) {
-                            int xPlay = possiblePlay[0].Item1;
-                            int yPlay = possiblePlay[0].Item2;
-                            board  = Board.updatePlate(board, xPlay, yPlay);
-                            return board;
+                            
+                            foreach (var p in possiblePlay)
+                            {
+                                if (moves.Exists(m => m.posX == p.Item1 && m.posY == p.Item2))
+                                    continue;
+                                moves.Add(new Move
+                                {
+                                    posX = p.Item1,
+                                    posY = p.Item2,
+                                    tagged = false
+                                });
+                            }
                         }
 
                             // If there is obviously all case around that are bombs : tagged them
                         if (bombAround.Count < Plate[x, y].Value && possiblePlay.Count == Plate[x, y].Value - bombAround.Count)
                         {
-                            int xPlay = possiblePlay[0].Item1;
-                            int yPlay = possiblePlay[0].Item2;
-                            board.Plate[xPlay, yPlay].IsTagged = !board.Plate[xPlay, yPlay].IsTagged;
-                            board.MineCount += 1;
-                            return board;
+                            
+                            foreach (var p in possiblePlay)
+                            {
+                                if (moves.Exists(m => m.posX == p.Item1 && m.posY == p.Item2))
+                                    continue;
+                                moves.Add(new Move
+                                {
+                                    posX = p.Item1,
+                                    posY = p.Item2,
+                                    tagged = true
+                                });
+                            }
                         }
                     }
                 }
             }
                 // Here it play randomly if it didn't have found case to move before
-            var rndPlay = randomPlay(board);
-            int rndX = rndPlay.Item1;
-            int rndY = rndPlay.Item2;
-            board = Board.updatePlate(board, rndX, rndY);
-            Console.WriteLine("I'm stuck, random play.");
-            Console.ReadLine();
-            return board;
+            if (moves.Count == 0)
+            {
+                var rndPlay = randomPlay(board);
+                moves.Add(new Move
+                {
+                    posX = rndPlay.Item1,
+                    posY = rndPlay.Item2,
+                    tagged = false
+                });
+                Console.WriteLine("I'm stuck, random play.");
+                Console.ReadLine();
+            }
+            return moves;
         }
     }
 }

@@ -160,6 +160,22 @@ namespace Mines
             board.GameEnd = board.GameEnd || (countClear == board.MineValue);
             return board;
         }
+
+
+        public static Board Play(Board board, Move move)
+        {
+            if (move.tagged)
+            {
+                board.Plate[move.posX, move.posY].IsTagged = !board.Plate[move.posX, move.posY].IsTagged;
+                board.MineCount += 1;
+            }
+            else
+            {
+                board = updatePlate(board, move.posX, move.posY);
+            }
+
+            return board;
+        }
     }
 
 }
