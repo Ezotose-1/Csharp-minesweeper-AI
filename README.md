@@ -6,7 +6,7 @@ C# Console Mines game with Artificial Intelligence to resolve it.
 ## Installation
 * Download the file thank's to the github page. Or clone the project with the git link :
 ```shell
-git clone https://github.com/Ezotose-1/Mines.git
+git clone https://github.com/Ezotose-1/Csharp-minesweeper-AI.git
 ```
 
 
