@@ -1,5 +1,5 @@
-# Minesweeper
-C# Console Mines game
+# Minesweeper AI
+C# Console Mines game with Artificial Intelligence to resolve it.
 
 
 
