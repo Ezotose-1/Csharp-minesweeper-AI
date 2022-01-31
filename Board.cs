@@ -46,7 +46,7 @@ namespace Mines
                 // Generate mines
             for (int k = 0; k < board.MineValue; k++)
             {
-                (int, int) minePos = generateMine(board);
+                var minePos = generateMine(board);
                 int posX = minePos.Item1;
                 int posY = minePos.Item2;
                 board.Plate[posX, posY].IsMine = true;
